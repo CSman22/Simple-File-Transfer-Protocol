@@ -8,20 +8,26 @@ Description :   his file is the client that will request the inputs from the use
 from socket import *
 import sys
 
+# Get IP address and port number from arguments
 serverName = str(sys.argv[1])
 serverPort = int(sys.argv[2])
 # serverName = '127.0.0.1'
 # serverPort = 12000
 
+# -------------------------------------------------------
 # SOCK_STREAM: a TCP socket
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
 # initiates the TCP connection between the client and server
 clientSocket.connect((serverName, serverPort))
 print('Session has been established')
+# -------------------------------------------------------
 
+# Request from uses
 sentence = input("Input lowercase sentence:")
 
+
+# -------------------------------------------------------
 # Convert the sentence to byte into the TCP connection
 clientSocket.sendto(sentence.encode(), (serverName, serverPort))
 
