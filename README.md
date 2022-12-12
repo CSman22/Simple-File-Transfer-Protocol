@@ -23,7 +23,7 @@ You can insert different files into any of these folders and run the program.
 The following are examples of running the program.
 
 ```
-    Help                            | Retrieve the user commands
+    	Help                            | Retrieve the user commands
 	Get girl.jpg                    | Download a file from the server folder
 	Put req.pdf                     | Upload a file to the server folder
 	Change req.pdf requirement.pdf  | Change filename in the server folder
