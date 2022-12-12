@@ -1,3 +1,9 @@
+"""
+Author      :   Jackey Weng
+Student ID  :   40130001
+Description :   This file contains all the Request model that will be 
+                generated to send information from the client to the server
+"""
 import json
 
 
@@ -11,10 +17,12 @@ class Put:
 
     # return a Put representation
     def __repr__(self):
-        return f'opcode \t\t|{self.opcode} \n'\
+        return f'---------Request Message---------\n' \
+            f'opcode \t\t|{bin(self.opcode)} \n'\
             f'filename_length\t|{self.filename_length} \n'\
             f'filename \t|{self.filename} \n'\
-            f'file_size \t|{self.file_size}'
+            f'file_size \t|{self.file_size}\n'\
+            '---------------------------------'
 
     # return the PUT as an object
     @classmethod
@@ -37,18 +45,20 @@ class Put:
 
 class Get:
     # constructor
-    def __init__(self, opcode, filename_length, filename, ):
+    def __init__(self, opcode, filename_length, filename):
         self.opcode = opcode
         self.filename_length = filename_length
         self.filename = filename
 
-    # return a Put representation
+    # return a Get representation
     def __repr__(self):
-        return f'opcode \t\t|{self.opcode} \n'\
+        return f'---------Request Message---------\n' \
+            f'opcode \t\t|{bin(self.opcode)} \n'\
             f'filename_length\t|{self.filename_length} \n'\
-            f'filename \t|{self.filename} \n'
+            f'filename \t|{self.filename}\n'\
+            '---------------------------------'
 
-    # return the PUT as an object
+    # return the Get as an object
     @classmethod
     def deserialize(cls, get_string):
         # convert it to dictionary
@@ -56,7 +66,7 @@ class Get:
         # return the object by passing the keys as parameters
         return cls(**get_dict)
 
-    # return a Put dictionary
+    # return a Get dictionary
     def dictionary(self):
         get = {
             "opcode": self.opcode,
@@ -75,15 +85,17 @@ class Change:
         self.new_filename_length = new_filename_length
         self.new_filename = new_filename
 
-    # return a Put representation
+    # return a Change representation
     def __repr__(self):
-        return f'opcode \t\t|{self.opcode} \n'\
-            f'old_filename_length\t|{self.old_filename_length} \n'\
-            f'old_filename \t|{self.old_filename} \n'\
-            f'new_filename_length \t|{self.new_filename_length} \n'\
-            f'new_filename \t|{self.new_filename} \n'
+        return f'---------Request Message---------\n' \
+            f'opcode     \t\t|{bin(self.opcode)} \n'\
+            f'Old filename length\t|{self.old_filename_length} \n'\
+            f'Old filename  \t\t|{self.old_filename} \n'\
+            f'New filename length \t|{self.new_filename_length} \n'\
+            f'New filename \t\t|{self.new_filename}\n'\
+            '---------------------------------'
 
-    # return the PUT as an object
+    # return the Change as an object
     @classmethod
     def deserialize(cls, change_string):
         # convert it to dictionary
@@ -91,7 +103,7 @@ class Change:
         # return the object by passing the keys as parameters
         return cls(**change_dict)
 
-    # return a Put dictionary
+    # return a Change dictionary
     def dictionary(self):
         change = {
             "opcode": self.opcode,
@@ -108,11 +120,12 @@ class Help:
     def __init__(self, opcode):
         self.opcode = opcode
 
-    # return a Put representation
+    # return a Help representation
     def __repr__(self):
-        return f'opcode \t\t|{self.opcode}'
+        return f'---------Request Message---------\n' \
+            f'opcode \t|{bin(self.opcode)}'
 
-    # return the PUT as an object
+    # return the Help as an object
     @classmethod
     def deserialize(cls, help_string):
         # convert it to dictionary
@@ -120,7 +133,7 @@ class Help:
         # return the object by passing the keys as parameters
         return cls(**help_dict)
 
-    # return a Put dictionary
+    # return a Help dictionary
     def dictionary(self):
         help = {
             "opcode": self.opcode,
@@ -133,11 +146,12 @@ class Bye:
     def __init__(self, opcode):
         self.opcode = opcode
 
-    # return a Put representation
+    # return a Bye representation
     def __repr__(self):
-        return f'opcode \t\t|{self.opcode}'
+        return f'---------Request Message---------\n' \
+            f'opcode \t|{bin(self.opcode)}'
 
-    # return the PUT as an object
+    # return the Bye as an object
     @classmethod
     def deserialize(cls, bye_string):
         # convert it to dictionary
@@ -151,3 +165,30 @@ class Bye:
             "opcode": self.opcode,
         }
         return bye
+
+
+class Error:
+    # constructor
+    def __init__(self, opcode):
+        self.opcode = opcode
+
+    # return a Error representation
+    def __repr__(self):
+        return f'---------Request Message---------\n' \
+            f'opcode |{bin(self.opcode)}\n'\
+            '---------------------------------'
+
+    # return the Error as an object
+    @classmethod
+    def deserialize(cls, error_string):
+        # convert it to dictionary
+        error_dict = json.loads(error_string)
+        # return the object by passing the keys as parameters
+        return cls(**error_dict)
+
+    # return a Error dictionary
+    def dictionary(self):
+        Error = {
+            "opcode": self.opcode,
+        }
+        return Error
